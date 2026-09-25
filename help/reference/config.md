@@ -12,7 +12,7 @@ description: Every field in the config file.
   "color": "#2f6feb",
   "colorDark": "#6d9bff",
   "base": "/buoy/docs/",
-  "site": "https://mindmelding.vercel.app",
+  "site": "https://mindmelding.dev",
   "home": "/buoy",
   "repo": "mindmelding/buoy-app",
   "logo": { "light": "images/logo.svg", "dark": "images/logo-dark.svg" },

@@ -3,7 +3,7 @@ title: Deploying
 description: Build the site on every push and serve it under your own domain and path.
 ---
 
-The build writes plain files, so any static host works. This page covers the setup mindmelding uses: each product's docs run as a Cloudflare Worker that serves static files, and the main site forwards `/<product>/docs` to it. Both are free at docs scale.
+The build writes plain files, so any static host works. This page covers the setup mindmelding uses: each product's docs run as a Cloudflare Worker that serves static files, on a path of the main domain, such as `mindmelding.dev/buoy/docs`. It's free at docs scale.
 
 ## A Worker for the docs
 
@@ -17,9 +17,12 @@ Add `help/wrangler.jsonc` to the product repo. docs-kit leaves this file out of 
     "directory": "../dist-help",
     "html_handling": "auto-trailing-slash",
     "not_found_handling": "404-page"
-  }
+  },
+  "routes": [{ "pattern": "mindmelding.dev/buoy/docs*", "zone_name": "mindmelding.dev" }]
 }
 ```
+
+The route puts the docs on your domain. Leave it out to use only the `workers.dev` address.
 
 Then build and deploy once from your machine to check it:
 
@@ -28,7 +31,7 @@ npx github:mindmelding/docs-kit build help --out dist-help
 npx wrangler deploy -c help/wrangler.jsonc
 ```
 
-Wrangler prints the address, such as `https://buoy-docs.<account>.workers.dev`. The docs sit under the base path: `/buoy/docs/`.
+The docs are live at `https://mindmelding.dev/buoy/docs/`, and at the `workers.dev` address Wrangler prints.
 
 ## Deploy on every push
 
@@ -52,26 +55,15 @@ In the Cloudflare dashboard, open **Workers & Pages**, choose **Create**, then i
 The first build takes about a minute.
 ::::
 
-## Serving from your main site
+## Sharing a domain with your main site
 
-To show the docs at `https://yoursite.com/buoy/docs`, have the main site forward that path to the Worker. On Vercel, add rewrites to the main site's `vercel.json`:
-
-```json
-{
-  "rewrites": [
-    { "source": "/buoy/docs", "destination": "https://buoy-docs.<account>.workers.dev/buoy/docs/" },
-    { "source": "/buoy/docs/", "destination": "https://buoy-docs.<account>.workers.dev/buoy/docs/" },
-    { "source": "/buoy/docs/:path*/", "destination": "https://buoy-docs.<account>.workers.dev/buoy/docs/:path*/" },
-    { "source": "/buoy/docs/:path*", "destination": "https://buoy-docs.<account>.workers.dev/buoy/docs/:path*" }
-  ]
-}
-```
-
-Keep all four, in this order. The first two cover the docs home with and without a slash; the last two keep the trailing slash on pages and leave files such as `llms.txt` alone. Visitors keep seeing your domain.
+Routes let many Workers share one domain. The main site takes the whole domain, and each docs Worker takes its own path. Cloudflare sends each request to the most specific route, so `mindmelding.dev/buoy/docs/quickstart/` reaches the docs Worker and everything else reaches the site. The domain has to be on Cloudflare.
 
 :::note[Why the base path matters]
-Set `base` in `help.json` to the exact path the docs live under on the main site, with slashes on both ends. If the two differ, pages load without styles.
+Set `base` in `help.json` to the same path as the route, with slashes on both ends: route `mindmelding.dev/buoy/docs*` goes with base `/buoy/docs/`. If the two differ, pages load without styles.
 :::
+
+If your main site is on another host, forward the path to the Worker instead. On Vercel, that's four rewrites in `vercel.json`: `/buoy/docs` and `/buoy/docs/` to the docs home, then `/buoy/docs/:path*/` and `/buoy/docs/:path*` to the same paths on the Worker, in that order.
 
 ## Any other host
 

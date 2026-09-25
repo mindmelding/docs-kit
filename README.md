@@ -4,7 +4,7 @@ A folder of Markdown in, a docs site out.
 
 docs-kit builds product docs with the layout people know from the best developer docs: tabs across the top, a grouped sidebar, a table of contents that follows your scroll, search on ⌘K, and light and dark themes. The output is static HTML, so it runs on any host for free. Every page also ships as Markdown, with `llms.txt`, so AI agents can read your docs as easily as people.
 
-**Docs:** https://mindmelding.vercel.app/docs-kit/docs
+**Docs:** https://mindmelding.dev/docs-kit/docs
 
 ## Start
 
@@ -39,7 +39,7 @@ Choose **Slack** and approve the request.
 ::::
 ```
 
-Blocks: `:::note`, `:::tip`, `:::warning`, `:::danger`, `::::cards`, `::::steps` and `::::tabs`. Everything else is standard Markdown that still reads well on GitHub. The [blocks page](https://mindmelding.vercel.app/docs-kit/docs/blocks/) shows each one.
+Blocks: `:::note`, `:::tip`, `:::warning`, `:::danger`, `::::cards`, `::::steps` and `::::tabs`. Everything else is standard Markdown that still reads well on GitHub. The [blocks page](https://mindmelding.dev/docs-kit/docs/blocks/) shows each one.
 
 ## The config
 
@@ -50,14 +50,14 @@ Blocks: `:::note`, `:::tip`, `:::warning`, `:::danger`, `::::cards`, `::::steps`
   "name": "Buoy",
   "color": "#2f6feb",
   "base": "/buoy/docs/",
-  "site": "https://mindmelding.vercel.app",
+  "site": "https://mindmelding.dev",
   "tabs": [
     { "label": "Product", "groups": [{ "group": "Get started", "pages": ["what-is", "quickstart"] }] }
   ]
 }
 ```
 
-Every field is in the [config reference](https://mindmelding.vercel.app/docs-kit/docs/reference/config/).
+Every field is in the [config reference](https://mindmelding.dev/docs-kit/docs/reference/config/).
 
 ## What a build gives you
 

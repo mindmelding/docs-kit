@@ -3,7 +3,7 @@
   "description": "One sentence on what the product does and who it's for.",
   "color": "#3a6df0",
   "base": "/product/docs/",
-  "site": "https://mindmelding.vercel.app",
+  "site": "https://mindmelding.dev",
   "home": "/product",
   "repo": "mindmelding/product",
   "links": [{ "label": "Back to Product", "href": "/product" }],
