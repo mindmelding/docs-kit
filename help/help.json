@@ -5,7 +5,7 @@
   "colorDark": "#7c9ef7",
   "base": "/docs-kit/docs/",
   "site": "https://mindmelding.dev",
-  "home": "/docs-kit",
+  "home": "/docs-kit/docs/",
   "repo": "mindmelding/docs-kit",
   "links": [{ "label": "mindmelding", "href": "/" }, { "label": "GitHub", "href": "https://github.com/mindmelding/docs-kit" }],
   "tabs": [
