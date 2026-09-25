@@ -1,0 +1,27 @@
+{
+  "name": "docs-kit",
+  "description": "A folder of Markdown in, a docs site out: tabs, sidebar, table of contents, search, dark mode and llms.txt.",
+  "color": "#3a6df0",
+  "colorDark": "#7c9ef7",
+  "base": "/docs-kit/docs/",
+  "site": "https://mindmelding.vercel.app",
+  "home": "/docs-kit/docs/",
+  "repo": "mindmelding/docs-kit",
+  "links": [{ "label": "GitHub", "href": "https://github.com/mindmelding/docs-kit" }],
+  "tabs": [
+    {
+      "label": "Guide",
+      "groups": [
+        { "group": "Get started", "pages": ["what-is", "quickstart"] },
+        { "group": "Writing", "pages": ["pages", "blocks"] },
+        { "group": "Publishing", "pages": ["deploy", "agents"] }
+      ]
+    },
+    {
+      "label": "Reference",
+      "groups": [
+        { "group": "Reference", "pages": ["reference/config", "reference/cli"] }
+      ]
+    }
+  ]
+}
