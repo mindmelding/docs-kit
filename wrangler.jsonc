@@ -1,0 +1,11 @@
+// Hosts the built docs (dist/) as a static-assets Worker. No server code.
+// Deploy: npm run build && npx wrangler deploy
+{
+  "name": "docs-kit-docs",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": "./dist",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}

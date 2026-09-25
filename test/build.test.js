@@ -83,3 +83,14 @@ test("step headings stay out of the table of contents", async () => {
   const { toc } = r.render("## Setup\n\n::::steps\n### Install\n::::\n\n### Later\n", {});
   assert.deepEqual(toc.map((h) => h.text), ["Setup", "Later"]);
 });
+
+test("wrangler config in the docs folder stays out of the site", async () => {
+  const src = await fixture({
+    "help.json": config(["a"]),
+    "a.md": "---\ntitle: A\n---\nHi\n",
+    "wrangler.jsonc": "{}",
+  });
+  const out = path.join(src, "dist");
+  await build({ src, out });
+  await assert.rejects(fs.stat(path.join(out, "t/docs/wrangler.jsonc")));
+});

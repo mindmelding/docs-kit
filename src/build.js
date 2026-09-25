@@ -190,6 +190,7 @@ export async function build({ src = "help", out = "dist", base, site } = {}) {
       p === outRoot ||
       p.startsWith(outRoot + path.sep) ||
       e.name === "node_modules" ||
+      /^wrangler\.(jsonc?|toml)$/.test(e.name) ||
       (e.isFile() && (p.endsWith(".md") || p.endsWith("help.json"))),
   );
 
