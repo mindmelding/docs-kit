@@ -18,11 +18,12 @@ Add `help/wrangler.jsonc` to the product repo. docs-kit leaves this file out of 
     "html_handling": "auto-trailing-slash",
     "not_found_handling": "404-page"
   },
+  "previews": {},
   "routes": [{ "pattern": "mindmelding.dev/buoy/docs*", "zone_name": "mindmelding.dev" }]
 }
 ```
 
-The route puts the docs on your domain. Leave it out to use only the `workers.dev` address.
+The route puts the docs on your domain. Leave it out to use only the `workers.dev` address. Cloudflare's branch previews need the `previews` block, even when it's empty.
 
 Then build and deploy once from your machine to check it:
 
@@ -48,7 +49,11 @@ In the Cloudflare dashboard, open **Workers & Pages**, choose **Create**, then i
 |---|---|
 | Build command | `npx -y github:mindmelding/docs-kit build help --out dist-help` |
 | Deploy command | `npx wrangler deploy -c help/wrangler.jsonc` |
-| Preview deploy command | `npx wrangler versions upload -c help/wrangler.jsonc` |
+| Preview command | leave Cloudflare's default, `npx wrangler preview` |
+
+:::warning[Point Wrangler at the config]
+Branch builds run `npx wrangler preview` from the repo root, where there's no config. Commit `.wrangler/deploy/config.json` containing `{ "configPath": "../../help/wrangler.jsonc" }`, and add `!.wrangler/deploy/` to `.gitignore` after `.wrangler/*`. Without it, every branch and pull request fails with "missing a `previews` block".
+:::
 
 ### Push
 
