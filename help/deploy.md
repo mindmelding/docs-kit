@@ -49,10 +49,10 @@ In the Cloudflare dashboard, open **Workers & Pages**, choose **Create**, then i
 |---|---|
 | Build command | `npx -y github:mindmelding/docs-kit build help --out dist-help` |
 | Deploy command | `npx wrangler deploy -c help/wrangler.jsonc` |
-| Preview deploy command | `npx wrangler preview -c help/wrangler.jsonc` |
+| Preview command | leave Cloudflare's default, `npx wrangler preview` |
 
-:::warning[Check the preview command]
-Cloudflare fills in `npx wrangler preview` for branch builds. Without `-c help/wrangler.jsonc`, Wrangler can't find the config, and every branch and pull request fails with "missing a `previews` block".
+:::warning[Point Wrangler at the config]
+Branch builds run `npx wrangler preview` from the repo root, where there's no config. Commit `.wrangler/deploy/config.json` containing `{ "configPath": "../../help/wrangler.jsonc" }`, and add `!.wrangler/deploy/` to `.gitignore` after `.wrangler/*`. Without it, every branch and pull request fails with "missing a `previews` block".
 :::
 
 ### Push
